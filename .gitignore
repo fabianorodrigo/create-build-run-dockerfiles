@@ -68,18 +68,7 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
-.env
-.env.test
-
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-
-# Next.js build output
-.next
-
-# Nuxt.js build / generate output
-.nuxt
+# build
 dist
 
 # Gatsby files
@@ -102,3 +91,6 @@ dist
 
 # TernJS port file
 .tern-port
+
+# saida da execucao 
+output
