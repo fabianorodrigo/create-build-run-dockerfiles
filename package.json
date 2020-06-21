@@ -1,0 +1,33 @@
+{
+  "name": "create-build-run-dockerfiles",
+  "version": "1.0.0",
+  "description": "Gera Dockerfile a partir de conjunto de subdiretórios, builda imagens, publica no Docker Hub e executa containeres das respectivas imagens",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabianorodrigo/create-build-run-dockerfiles.git"
+  },
+  "keywords": [
+    "docker",
+    "automatic",
+    "Dockerfile"
+  ],
+  "author": "Fabiano Nascimento",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fabianorodrigo/create-build-run-dockerfiles/issues"
+  },
+  "homepage": "https://github.com/fabianorodrigo/create-build-run-dockerfiles#readme",
+  "dependencies": {
+    "@types/node": "^14.0.13",
+    "@types/readline-sync": "^1.4.3",
+    "@types/shelljs": "^0.8.8",
+    "shelljs": "^0.8.4"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.5"
+  }
+}
