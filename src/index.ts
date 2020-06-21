@@ -1,24 +1,47 @@
 import readlineSync from 'readline-sync';
 import colors from 'colors';
 import menu from './menu.json';
+import dotenv from 'dotenv';
+import { actions } from './actions';
+import { erro } from './actions/utils';
 
-console.log(
-  colors.bgYellow(
-    `Gerador Automático de Imagens Docker`.black
-      .padStart(50, '*')
-      .padEnd(50, '*'),
-  ),
-);
-
-console.log('Selecione uma opção:'.yellow);
+//Carga do arquivo .env nas variáveis de ambiente
+dotenv.config();
+header();
 
 let opcao = '';
-while (opcao.toLocaleLowerCase() != 's') {
-  Object.keys(menu.menus).forEach((m) => {
-    console.log(colors.red(m), '.', colors.yellow(menu.menus[m].label));
+while (opcao.toLowerCase() != 's') {
+  Object.keys(menu.menus).forEach((m: string) => {
+    menuItem(m, (menu.menus as { [key: string]: any })[m].label);
   });
+  menuItem('S', 'Sair');
 
   opcao = readlineSync.question(`Sua opção:`);
+  executaEscolha(opcao);
+}
 
-  eval(menu.menus[opcao].functionExec.concat('()'));
+function executaEscolha(opcao: string): void {
+  if (opcao.toLowerCase() != 's') {
+    const nomeFuncao = (menu.menus as { [key: string]: any })[opcao]
+      ?.functionExec;
+    if (nomeFuncao) {
+      (actions as { [key: string]: any })[nomeFuncao]();
+    } else {
+      erro(`Opção inválida!`);
+    }
+  }
+}
+
+function header(): void {
+  console.log(
+    colors.bgYellow(
+      `Gerador Automático de Imagens Docker`.padStart(50, ' ').padEnd(75, ' '),
+    ).black,
+  );
+  console.log();
+}
+function menuItem(key: string, label: string): void {
+  if (key == 'S') console.log();
+  console.log(colors.red(key), '.', colors.yellow(label));
+  if (key == 'S') console.log();
 }

@@ -2,14 +2,13 @@
   "menus": {
     "1": {
       "label": "Realizar cópia das origens",
-      "function": "copyOrigin"
+      "functionExec": "copyOrigin"
     },
     "2": {
       "label": "Gerar Dockerfiles",
-      "function": "createDockerfiles"
+      "functionExec": "createDockerfiles"
     },
     "3": { "label": "Buildar imagens", "functionExec": "buildImages" },
-    "4": { "label": "Executar containers", "functionExec": "runContainer" },
-    "S": { "label": "Sair", "functionExec": "quit" }
+    "4": { "label": "Executar containers", "functionExec": "runContainers" }
   }
 }
