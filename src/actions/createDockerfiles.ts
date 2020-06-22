@@ -31,7 +31,7 @@ export function createDockerfiles(): void {
           : ''
       } ${f} ./${f}\n`;
       //muda diretório para o diretório copiado
-      dockerfile += `CMD cd ${f}`;
+      dockerfile += `WORKDIR ${f}\n`;
       if (process.env.DOCKER_CMD) {
         dockerfile += `CMD ${process.env.DOCKER_CMD}\n`;
       }
