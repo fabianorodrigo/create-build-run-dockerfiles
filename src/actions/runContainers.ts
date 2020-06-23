@@ -1,3 +1,4 @@
+import readlineSync from 'readline-sync';
 import fs, { readFileSync } from 'fs';
 import path from 'path';
 import shelljs from 'shelljs';
@@ -19,15 +20,38 @@ export function runContainers(): void {
       return;
     }
 
+    let removerContainer = readlineSync
+      .question(`Remover containeres após execução (S/n):`)
+      .toUpperCase();
+    if (removerContainer.trim() == '') {
+      removerContainer = 'S';
+    }
+
+    const comandoHost = readlineSync.question(
+      `Linha de comando a se executar no host (para referenciar o nome do container use #container#):`,
+    );
+
+    const datetime = new Date().toISOString();
     for (let i = 0; i < children.length; i++) {
-      const prefixoTag = process.env.DOCKER_TAG_PREFIX
-        ? process.env.DOCKER_TAG_PREFIX.toLowerCase()
-        : '';
-      const comando = `docker run -i ${prefixoTag}${children[
-        i
-      ].toLowerCase()}`;
-      console.log(comando);
-      shelljs.exec(comando);
+      try {
+        const prefixoTag = process.env.DOCKER_TAG_PREFIX
+          ? process.env.DOCKER_TAG_PREFIX.toLowerCase()
+          : '';
+        const childName = children[i].toLowerCase();
+        const containerName = childName.concat(datetime);
+        const comando = `docker run -i --name ${containerName} ${prefixoTag}${childName}`;
+        console.log(comando);
+        shelljs.exec(comando);
+        if (comandoHost && comandoHost.trim().length > 0) {
+          shelljs.exec(comandoHost.replace(/#container#/g, containerName));
+        }
+        if (removerContainer.toUpperCase() == 'S') {
+          shelljs.exec(`docker stop ${containerName}`);
+          shelljs.exec(`docker rm ${containerName}`);
+        }
+      } catch (e) {
+        break;
+      }
     }
   }
 }
