@@ -23,7 +23,7 @@ export function runContainers(): void {
       const prefixoTag = process.env.DOCKER_TAG_PREFIX
         ? process.env.DOCKER_TAG_PREFIX.toLowerCase()
         : '';
-      const comando = `docker run -it ${prefixoTag}${children[
+      const comando = `docker run -i ${prefixoTag}${children[
         i
       ].toLowerCase()}`;
       console.log(comando);
