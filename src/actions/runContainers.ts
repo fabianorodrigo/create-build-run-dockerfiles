@@ -3,6 +3,7 @@ import fs, { readFileSync } from 'fs';
 import path from 'path';
 import shelljs from 'shelljs';
 import { validaEnv, erro } from './utils';
+import moment from 'moment';
 
 export function runContainers(): void {
   if (validaEnv('HOME_ORIGIN')) {
@@ -31,7 +32,7 @@ export function runContainers(): void {
       `Linha de comando a se executar no host (para referenciar o nome do container use #container#):`,
     );
 
-    const datetime = new Date().toISOString();
+    const datetime = moment().format('YYYYMMDDHHmm');
     for (let i = 0; i < children.length; i++) {
       try {
         const prefixoTag = process.env.DOCKER_TAG_PREFIX
