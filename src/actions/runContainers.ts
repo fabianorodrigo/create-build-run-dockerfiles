@@ -39,7 +39,7 @@ export function runContainers(): void {
           ? process.env.DOCKER_TAG_PREFIX.toLowerCase()
           : '';
         const childName = children[i].toLowerCase();
-        const containerName = childName.concat(datetime);
+        const containerName = childName.concat('_', datetime);
         const comando = `docker run -i --name ${containerName} ${prefixoTag}${childName}`;
         console.log(comando);
         shelljs.exec(comando);
