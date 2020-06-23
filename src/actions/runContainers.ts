@@ -44,6 +44,7 @@ export function runContainers(): void {
         console.log(comando);
         shelljs.exec(comando);
         if (comandoHost && comandoHost.trim().length > 0) {
+          console.log(comandoHost.replace(/#container#/g, containerName));
           shelljs.exec(comandoHost.replace(/#container#/g, containerName));
         }
         if (removerContainer.toUpperCase() == 'S') {
